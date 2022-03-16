@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClientRepository implements Repository<Client> {
-    private List<Client> clients;
+    private List<Client> clients = new ArrayList<>();
 
-    public ClientRepository() {
-        this.clients = new ArrayList<>();
+    private static final ClientRepository INSTANCE = new ClientRepository();
+
+    private ClientRepository() {}
+
+    public static ClientRepository getInstance() {
+        return INSTANCE;
     }
 
     @Override
@@ -25,15 +29,16 @@ public class ClientRepository implements Repository<Client> {
 
     @Override
     public void save(Client obj) {
-        clients.add(obj);
+        this.clients.add(obj);
     }
 
     @Override
     public Optional<Client> findById(Long id) {
-        Optional<Client> clientFound = clients.stream().filter(client -> client.getID().equals(id)).findAny();
+        Optional<Client> clientFound = this.clients.stream().filter(client -> client.getID().equals(id)).findAny();
 
         if (clientFound.isPresent()) {
-            show(clientFound.get());
+            System.out.println("===== Cliente encontrado =====");
+            System.out.println(clientFound.get());
         } else {
             System.out.println("Cliente nao encontrado");
         }
@@ -41,14 +46,9 @@ public class ClientRepository implements Repository<Client> {
         return clientFound;
     }
 
-    public void show(Client client) {
-        System.out.println("===== Cliente =====");
-        System.out.println(client);
-    }
-
     @Override
     public void deleteById(Long id) {
-        boolean response = clients.removeIf(client -> client.getID().equals(id));
+        boolean response = this.clients.removeIf(client -> client.getID().equals(id));
 
         if (response) {
             System.out.println("Cliente excluido com sucesso");
@@ -56,6 +56,6 @@ public class ClientRepository implements Repository<Client> {
         }
 
 
-        System.out.println("Cliente nao encontrado");
+        System.out.println("Nao foi possivel encontrar o cliente informado para exclusao");
     }
 }
