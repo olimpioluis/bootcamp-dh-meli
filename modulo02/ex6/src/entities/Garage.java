@@ -44,5 +44,6 @@ public class Garage {
 
     public BigDecimal getAverageVehiclePrice() {
         return vehicles.stream().reduce(BigDecimal.valueOf(0), (acc, currentVehicle) -> acc.add(currentVehicle.getPrice()), BigDecimal::add).divide(BigDecimal.valueOf(vehicles.size()), 2, RoundingMode.HALF_UP);
+        //BigDecimal.valueOf(vehicles.stream().mapToDouble(Vehicle::getPrice).average());
     }
 }
