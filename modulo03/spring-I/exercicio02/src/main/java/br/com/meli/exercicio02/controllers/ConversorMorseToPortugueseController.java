@@ -12,12 +12,12 @@ import java.util.*;
 public class ConversorMorseToPortugueseController {
 
 
-    private final List<String> morseCode = new ArrayList<>(Arrays.asList(
+    private final List<String> MORSE_CODE = new ArrayList<>(Arrays.asList(
             ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---",
             ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".----", "..---", "...--", "....-", ".....", "-....", "--... ", "---..", "----.", "-----", "..--..", "-.-.--", ".-.-.-", "--..--"
     ));
 
-    private final char[] symbols = {
+    private final char[] SYMBOLS = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ','
     };
 
@@ -33,10 +33,10 @@ public class ConversorMorseToPortugueseController {
                 if (senteceSplitted[i].equals("") && senteceSplitted[i + 1].equals("")) {
                     sentenceInPortuguese.append(" ");
                 } else {
-                    int findWordIndex = morseCode.indexOf(senteceSplitted[i]);
+                    int findWordIndex = MORSE_CODE.indexOf(senteceSplitted[i]);
 
                     if (findWordIndex != -1) {
-                        sentenceInPortuguese.append(symbols[findWordIndex]);
+                        sentenceInPortuguese.append(SYMBOLS[findWordIndex]);
                     }
                 }
 
