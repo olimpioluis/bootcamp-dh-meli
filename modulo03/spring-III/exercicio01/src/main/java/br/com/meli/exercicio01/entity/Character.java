@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Character {
     private String name;
-    private int height;
-    private int mass;
+    private Double height;
+    private Double mass;
     private String hairColor;
     private String skinColor;
     private String eyeColor;

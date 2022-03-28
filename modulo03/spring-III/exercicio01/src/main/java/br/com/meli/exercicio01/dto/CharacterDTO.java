@@ -11,23 +11,28 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CharacterDTO {
     private String name;
-    private int height;
-    private int mass;
+    private String height;
+    private String mass;
+    private String hairColor;
+    private String skinColor;
+    private String eyeColor;
+    private String birthYear;
     private String gender;
     private String homeworld;
     private String species;
 
-    public CharacterDTO convert(Character character) {
-        this.name = character.getName();
-        this.height = character.getHeight();
-        this.mass = character.getMass();
-        this.gender = character.getGender();
-        this.homeworld = character.getHomeworld();
-        this.species = character.getSpecies();
-        return this;
-    }
-
-    public static List<CharacterDTO> convert(List<Character> characters) {
-        return characters.stream().map(character -> new CharacterDTO(character.getName(), character.getHeight(), character.getMass(), character.getGender(), character.getHomeworld(), character.getSpecies())).collect(Collectors.toList());
+    public Character convert() {
+        return new Character(
+                this.name,
+                this.height.equalsIgnoreCase("NA") ? 0 : Double.parseDouble(this.height),
+                this.mass.equalsIgnoreCase("NA") ? 0 : Double.parseDouble(this.mass),
+                this.hairColor,
+                this.skinColor,
+                this.eyeColor,
+                this.birthYear,
+                this.gender,
+                this.homeworld,
+                this.species
+        );
     }
 }
