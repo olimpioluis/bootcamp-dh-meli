@@ -2,6 +2,7 @@ package br.com.meli.exercicio01.service;
 
 import br.com.meli.exercicio01.dto.PearlDTO;
 import br.com.meli.exercicio01.entity.Pearl;
+import br.com.meli.exercicio01.exception.PearlNotFoundException;
 import br.com.meli.exercicio01.repository.PearlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -27,11 +28,13 @@ public class PearlService {
 
     @Transactional
     public void deletePearl(Integer codeId) {
+        pearlRepository.findByCodeId(codeId).orElseThrow(() -> new PearlNotFoundException(codeId));
+
         pearlRepository.deleteByCodeId(codeId);
     }
 
     public PearlDTO updatePearl(PearlDTO pearlDTO, Integer codeId) {
-        Pearl pearl = pearlRepository.findByCodeId(codeId).orElse(new Pearl());
+        Pearl pearl = pearlRepository.findByCodeId(codeId).orElseThrow(() -> new PearlNotFoundException(codeId));
 
         return PearlDTO.pearlToDTO(pearlRepository.save(
                 Pearl.builder()
